@@ -8,6 +8,10 @@
     <!-- daisy ui &&& Tailwind cdn  -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- fontawesome cdn  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+        integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -61,12 +65,36 @@
     </header>
     <main>
         <!-- choose yourn tree section  -->
-        <section class="grid grid-cols-5 mt-5 gap-9">
-            <div class="col-span-1 bg-red-400">
-                <h1>category</h1>
+        <section class="grid grid-cols-8 pt-5 gap-8 bg-[#DCFCE7]">
+            <div id="category-items" class="col-span-1  space-y-1 ml-5 list-none">
+                <!-- ---------- -->
             </div>
-            <div class="col-span-3 bg-yellow-500">
-                <h1>choose</h1>
+            <div class="col-span-6 bg-gray-400 lg:pl-18">
+                <h1 class="text-center text-2xl font-bold border-b-2 mb-5">Choose Your Trees</h1>
+                <div id="card-container" class="grid md:grid-cols-3 gap-3">
+                    <!-- ------------ -->
+                    <!-- <div class="card bg-base-100 w-96  shadow-sm">
+                        <figure>
+                            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+                                alt="Shoes" />
+                        </figure>
+                        <div class="card-body">
+                            <h2 class="card-title">Card Title</h2>
+                            <p>A card component has a figure, a body part, and inside body there are title and actions
+                                parts
+                            </p>
+                            <div class="card-actions justify-between">
+                                <div class="btn">fruitsn</div>
+                                <div class="mx-10">
+                                    <i class="fa-solid fa-bangladeshi-taka-sign"><span class="font-bold"></span
+                                            class="">500</span></i>
+                                </div>
+
+                            </div>
+                            <a class="btn px-6 text-[#f7f7f7] bg-[#15803D] rounded-3xl">Plant a Tree</a>
+                        </div>
+                    </div> -->
+                </div>
             </div>
             <div class="col-span-1 bg-blue-700">
                 <h1>cart</h1>
@@ -74,6 +102,10 @@
 
         </section>
     </main>
+
+
+    <!-- js file added here  -->
+    <script src="./scripts/script.js"></script>
 </body>
 
 </html>
