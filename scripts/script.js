@@ -2,7 +2,10 @@
 // store all container 
 const categoryItems = document.getElementById("category-items");
 const cardContainer = document.getElementById("card-container");
+const cartContainer = document.getElementById("cart-container");
+const cartCount = document.getElementById("cart-count");
 
+let cartItem = [];
 // load category by api 
 const loadCategory = () => {
     fetch("https://openapi.programming-hero.com/api/categories")
@@ -50,32 +53,101 @@ const loadCardByCategory = (categoryId) => {
 }
 // card display 
 const displayCard = (cards) => {
+    cardContainer.innerHTML = "";
     cards.forEach(card => {
-        console.log(card)
-        console.log(card.image)
+        const priceId = card.id;
+        const title = card.name;
+        const price = card.price;
+
         cardContainer.innerHTML += `
-                    <div class="card bg-base-100 w-96  shadow-sm h-[400px]">
+                    <div class="card bg-white w-96 mx-auto  shadow-sm h-[400px]">
                         <figure>
                             <img class="" src="${card.image}"
                                 alt="Shoes" />
                         </figure>
                         <div class="card-body">
-                            <h2 class="card-title">${card.name}</h2>
+                            <h2 class="card-title">${title}</h2>
                             <p>${card.description}</p>
                             <div class="card-actions justify-between">
                                 <div class="btn">${card.category}</div>
                                 <div class="mx-10">
-                                    <i class="fa-solid fa-bangladeshi-taka-sign"><span class="font-bold"></span
-                                            class="">${card.price}</span></i>
+                                   <i class="fa-solid fa-bangladeshi-taka-sign"><span class="font-bold" id="${priceId}">${price}</span></i>
                                 </div>
 
                             </div>
-                            <a class="btn px-6 text-[#f7f7f7] bg-[#15803D] rounded-3xl">Add To Cart</a>
+                            <button id="${card.id}"" class="btn add-cart-btn px-6 text-[#f7f7f7] bg-[#15803D] rounded-3xl">Add To Cart</button> 
+                        </div>
+                    </div>      
+`
+    })
+}
+
+cardContainer.addEventListener('click', (e) => {
+    // console.log(e.target)
+    // console.log(e.target.innerText)
+
+    if (e.target.innerText === "Add To Cart") {
+        const price = document.getElementById("total-price");;
+        const priceValueNumber = Number(price.innerText);
+        const cartPrice = e.target.parentNode.children[2].children[1].children[0].innerText;
+        const cardPriceNumber = Number(cartPrice)
+        const subtotalPrice = priceValueNumber + cardPriceNumber;
+        price.innerText = subtotalPrice;
+
+        handleDeleteItem(subtotalPrice);
+        handleCartItem(e);
+
+
+    }
+})
+// show cart item on cart container Selection 
+
+const showCartItem = (cartItem) => {
+    cartContainer.innerHTML = "";
+    cartItem.forEach(item => {
+        cartContainer.innerHTML += `
+                       <div class="flex order-1 justify-between items-center pr-3 space-y-5 bg-[#DCFCE7]">
+                        <div class="">
+                            <h1>${item.title}</h1>
+                             <p><span class="font-bold">৳  ${item.price}</span> × 1</p>
+                        </div>
+                        <div>
+                            <i onclick="handleDeleteItem('${item.id}')" class="fa-solid fa-xmark"></i>
                         </div>
                     </div>
-`
-    });
+        `
+        // cartCount.innerText = cartItem.length
 
+
+    });
 }
+
+
+
+const handleCartItem = (e) => {
+    const cartTitle = e.target.parentNode.children[0].innerText;
+    const cartPrice = e.target.parentNode.children[2].children[1].children[0].innerText;
+    const id = e.target.id;
+
+    cartItem.push({
+        title: cartTitle,
+        id: id,
+        price: cartPrice
+    })
+    showCartItem(cartItem);
+}
+
+// jevabe delete korbo cart item jaoa item ke jodi like na hoy 
+
+const handleDeleteItem = (itemId, subtotalPrice) => {
+    const filter = cartItem.filter(cartSingleItem => cartSingleItem.id !== itemId)
+    cartItem = filter
+    console.log(subtotalPrice)
+    showCartItem(cartItem)
+}
+
+
+
+loadCardByCategory("1")
 
 loadCategory()

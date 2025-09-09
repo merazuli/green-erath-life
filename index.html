@@ -49,7 +49,7 @@
         </div>
         <!-- banner section started  -->
         <section class="flex items-center bg-[#CFF0DC]">
-            <div>
+            <div class="hidden lg:block">
                 <img src="./assets/hero-leaf1.png" alt="">
             </div>
             <div class="text-center space-y-5">
@@ -58,20 +58,20 @@
                     generations.</p>
                 <a class="btn px-8 text-[#15803D] bg-[#FACC15] rounded-3xl">Get Involve</a>
             </div>
-            <div>
+            <div class="hidden lg:block">
                 <img src="./assets/hero-leaf2.png" alt="">
             </div>
         </section>
     </header>
     <main>
         <!-- choose yourn tree section  -->
-        <section class="grid grid-cols-8 pt-5 gap-8 bg-[#DCFCE7]">
-            <div id="category-items" class="col-span-1  space-y-1 ml-5 list-none">
+        <section class="grid lg:grid-cols-8 grid-cols-3 pt-5 gap-x-8 bg-[#DCFCE7]">
+            <div id="category-items" class="lg:col-span-1 col-span-3  space-y-2 ml-5 list-none">
                 <!-- ---------- -->
             </div>
-            <div class="col-span-6 bg-gray-400 lg:pl-18">
+            <div class="lg:col-span-6 col-span-3  lg:pl-18 ml-5">
                 <h1 class="text-center text-2xl font-bold border-b-2 mb-5">Choose Your Trees</h1>
-                <div id="card-container" class="grid md:grid-cols-3 gap-3">
+                <div id="card-container" class="grid md:grid-cols-3 gap-3 space-y-3">
                     <!-- ------------ -->
                     <!-- <div class="card bg-base-100 w-96  shadow-sm">
                         <figure>
@@ -96,8 +96,28 @@
                     </div> -->
                 </div>
             </div>
-            <div class="col-span-1 bg-blue-700">
-                <h1>cart</h1>
+            <div class="lg:col-span-1 col-span-3 bg-white">
+                <div class="flex justify-between items-center mx-3">
+                    <h1 class="text-xl font-bold px-2">Your Cart</h1>
+                    <p class="font-bold" id="cart-count">0</p>
+                </div>
+                <div id="cart-container">
+                    <!-- <div class="flex justify-between items-center pr-3 bg-[#DCFCE7]">
+                        <div class="pl-3">
+                            <h1>mangage tree</h1>
+                            <p>500 × 1</p>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-xmark"></i>
+                        </div>
+                    </div> -->
+
+
+                </div>
+                <div class="flex order-2 justify-between items-center px-5 mt-5 font-bold">
+                    <h1 class="ml-30">Total:</h1>
+                    <span id="total-price" class="">200</span>
+                </div>
             </div>
 
         </section>
