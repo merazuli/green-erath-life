@@ -3,9 +3,11 @@
 const categoryItems = document.getElementById("category-items");
 const cardContainer = document.getElementById("card-container");
 const cartContainer = document.getElementById("cart-container");
+// console.log(cartContainer)
 const cartCount = document.getElementById("cart-count");
 
 let cartItem = [];
+// console.log(cartItem)
 // load category by api 
 const loadCategory = () => {
     fetch("https://openapi.programming-hero.com/api/categories")
@@ -87,14 +89,12 @@ cardContainer.addEventListener('click', (e) => {
     // console.log(e.target.innerText)
 
     if (e.target.innerText === "Add To Cart") {
-        const price = document.getElementById("total-price");;
+        const price = document.getElementById("total-price");
         const priceValueNumber = Number(price.innerText);
         const cartPrice = e.target.parentNode.children[2].children[1].children[0].innerText;
         const cardPriceNumber = Number(cartPrice)
         const subtotalPrice = priceValueNumber + cardPriceNumber;
         price.innerText = subtotalPrice;
-
-        handleDeleteItem(subtotalPrice);
         handleCartItem(e);
 
 
@@ -106,13 +106,13 @@ const showCartItem = (cartItem) => {
     cartContainer.innerHTML = "";
     cartItem.forEach(item => {
         cartContainer.innerHTML += `
-                       <div class="flex order-1 justify-between items-center pr-3 space-y-5 bg-[#DCFCE7]">
+                       <div class="flex mb-3 justify-between items-center pr-3 space-y-5 bg-[#DCFCE7]">
                         <div class="">
                             <h1>${item.title}</h1>
                              <p><span class="font-bold">৳  ${item.price}</span> × 1</p>
                         </div>
                         <div>
-                            <i onclick="handleDeleteItem('${item.id}')" class="fa-solid fa-xmark"></i>
+                            <button onclick="handleDeleteItem('${item.id}')" class="fa-solid fa-xmark"></button>
                         </div>
                     </div>
         `
@@ -139,10 +139,22 @@ const handleCartItem = (e) => {
 
 // jevabe delete korbo cart item jaoa item ke jodi like na hoy 
 
-const handleDeleteItem = (itemId, subtotalPrice) => {
-    const filter = cartItem.filter(cartSingleItem => cartSingleItem.id !== itemId)
-    cartItem = filter
-    console.log(subtotalPrice)
+const handleDeleteItem = (itemId) => {
+    const filter = cartItem.filter(cartSingleItem => cartSingleItem.id !== itemId);
+    cartItem = filter;
+    const price = document.getElementById("total-price");
+    const priceValueNumber = Number(price.innerText);
+    if (cartContainer !== Object) {
+        price.innerText = "00";
+    }
+    for (const pr of cartItem) {
+        priceValueNumber.innerText = "";
+        const minusPr = Number(pr.price);
+        console.log(minusPr)
+        const beforePrice = Number(priceValueNumber - minusPr);
+        price.innerText = beforePrice;
+    }
+    // console.log(priceValueNumber, arrayPrice)
     showCartItem(cartItem)
 }
 
