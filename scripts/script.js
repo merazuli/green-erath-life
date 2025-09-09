@@ -7,8 +7,8 @@ const cartContainer = document.getElementById("cart-container");
 const cartCount = document.getElementById("cart-count");
 
 let cartItem = [];
-// console.log(cartItem)
 // load category by api 
+
 const loadCategory = () => {
     fetch("https://openapi.programming-hero.com/api/categories")
         .then(res => res.json())
@@ -31,7 +31,7 @@ const categoryDisplay = (categories) => {
     });
     categoryItems.addEventListener("click", (e) => {
         const allLi = document.querySelectorAll("li");
-        // console.log(e.target.id)
+        const id = e.target.id;
         allLi.forEach(li => {
             e.target.classList.add('bg-yellow-600')
         });
@@ -68,7 +68,7 @@ const displayCard = (cards) => {
                                 alt="Shoes" />
                         </figure>
                         <div class="card-body">
-                            <h2 class="card-title">${title}</h2>
+                            <h2 onclick="my_modal_1.showModal()" class="card-title">${title}</h2>
                             <p>${card.description}</p>
                             <div class="card-actions justify-between">
                                 <div class="btn">${card.category}</div>
@@ -135,6 +135,8 @@ const handleCartItem = (e) => {
         price: cartPrice
     })
     showCartItem(cartItem);
+    // --------
+    handleViewDetails(e)
 }
 
 // jevabe delete korbo cart item jaoa item ke jodi like na hoy 
@@ -158,6 +160,17 @@ const handleDeleteItem = (itemId) => {
     showCartItem(cartItem)
 }
 
+const handleViewDetails = (e) => {
+    const id = e.target.id;
+    fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+        })
+        .catch((err) => {
+            console.log(err)
+        })
+}
 
 
 loadCardByCategory("1")
