@@ -67,6 +67,8 @@
         <!-- choose your tree section  -->
         <section class="grid lg:grid-cols-8 grid-cols-3 pt-5 gap-x-5 bg-[#DCFCE7]">
             <div id="category-items" class="lg:col-span-1 col-span-3  space-y-2 ml-5 list-none">
+                <li id="" class="text-xl ml-4 hover:bg-white p-2">All Trees</li>
+
                 <!-- ---------- -->
             </div>
             <div class="lg:col-span-6 col-span-3  lg:pl-18 ml-5">
@@ -182,11 +184,18 @@
 
     </footer>
     <!-- Open the modal using ID.showModal() method -->
-    <button class="btn" onclick="my_modal_1.showModal()">open modal</button>
-    <dialog id="my_modal_1" class="modal">
+    <!-- <button class="btn" onclick="my_modal_1.showModal()">open modal</button>৳ -->
+    <dialog id="trees-detail-modal" class="modal">
         <div class="modal-box">
-            <h3 class="text-lg font-bold">Hello!</h3>
-            <p class="py-4">Press ESC key or click the button below to close</p>
+            <div id="modal-container">
+                <!-- <h1 class="font-bold text-xl">Tree</h1>
+                <img src="./assets/hero-leaf1.png" class="mb-5 rounded-2xl" alt="">
+                <h1><span class="text-lg font-bold">Category: </span> Fruits Tree</h1>
+                <p><span class="text-lg font-bold">Price: </span>৳ 1200</p>
+                <p><span class="text-lg font-bold">Description: </span>des</p> -->
+
+
+            </div>
             <div class="modal-action">
                 <form method="dialog">
                     <!-- if there is a button in form, it will close the modal -->

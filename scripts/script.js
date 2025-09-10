@@ -1,12 +1,49 @@
 
+
 // store all container 
 const categoryItems = document.getElementById("category-items");
 const cardContainer = document.getElementById("card-container");
 const cartContainer = document.getElementById("cart-container");
-// console.log(cartContainer)
 const cartCount = document.getElementById("cart-count");
+const modalContainer = document.getElementById("modal-container");
+const treeDetailsModal = document.getElementById("trees-detail-modal");
 
 let cartItem = [];
+
+
+const allPlantsDisplay = (allPlants) => {
+    allPlants.forEach(plant => {
+        cardContainer.innerHTML += `
+                    <div class="card bg-white w-96 mx-auto  shadow-sm h-[400px]">
+                        <figure>
+                            <img class="" src="${plant.image}"
+                                alt="Shoes" />
+                        </figure>
+                        <div class="card-body">
+                            <h2 onclick="treeDetailsModal.showModal();handleViewDetails(${plant.id})" class="card-title">${plant.name}</h2>
+                            <p>${plant.description}</p>
+                            <div class="card-actions justify-between">
+                                <div class="btn">${plant.category}</div>
+                                <div class="mx-10">
+                                   <i class="fa-solid fa-bangladeshi-taka-sign"><span class="font-bold" id="${plant.id}">${plant.price}</span></i>
+                                </div>
+
+                            </div>
+                            <button id="${plant.id}"" class="btn add-cart-btn px-6 text-[#f7f7f7] bg-[#15803D] rounded-3xl">Add To Cart</button> 
+                        </div>
+                    </div>      `
+
+    });
+
+}
+
+const loadAllPlants = () => {
+    fetch('https://openapi.programming-hero.com/api/plants')
+        .then(res => res.json())
+        .then(data => {
+            allPlantsDisplay(data.plants)
+        })
+}
 // load category by api 
 
 const loadCategory = () => {
@@ -68,7 +105,7 @@ const displayCard = (cards) => {
                                 alt="Shoes" />
                         </figure>
                         <div class="card-body">
-                            <h2 onclick="my_modal_1.showModal()" class="card-title">${title}</h2>
+                            <h2 onclick="treeDetailsModal.showModal();handleViewDetails(${card.id})" class="card-title">${title}</h2>
                             <p>${card.description}</p>
                             <div class="card-actions justify-between">
                                 <div class="btn">${card.category}</div>
@@ -87,8 +124,11 @@ const displayCard = (cards) => {
 cardContainer.addEventListener('click', (e) => {
     // console.log(e.target)
     // console.log(e.target.innerText)
+    // const title = e.target.parentNode.children[0].innerText
+    // console.log(title)
 
     if (e.target.innerText === "Add To Cart") {
+        alert('added item to cart')
         const price = document.getElementById("total-price");
         const priceValueNumber = Number(price.innerText);
         const cartPrice = e.target.parentNode.children[2].children[1].children[0].innerText;
@@ -96,9 +136,8 @@ cardContainer.addEventListener('click', (e) => {
         const subtotalPrice = priceValueNumber + cardPriceNumber;
         price.innerText = subtotalPrice;
         handleCartItem(e);
-
-
     }
+
 })
 // show cart item on cart container Selection 
 
@@ -160,12 +199,29 @@ const handleDeleteItem = (itemId) => {
     showCartItem(cartItem)
 }
 
-const handleViewDetails = (e) => {
-    const id = e.target.id;
+// show modal display 
+const modalDisplay = (plants) => {
+    modalContainer.innerHTML = " ";
+    // console.log(plants)
+    modalContainer.innerHTML += `
+              <h1 class="font-bold mb-5 text-xl">${plants.name}</h1>
+                <img src="${plants.image}" class="mb-5 rounded-2xl h-[300px] w-11/12 mx-auto" alt="">
+                <h1><span class="text-lg font-bold">Category: </span> ${plants.category}</h1>
+                <p><span class="text-lg font-bold">Price: </span>৳ ${plants.price}</p>
+                <p><span class="text-lg font-bold">Description: </span>${plants.description}</p>
+
+    
+    `
+
+
+}
+
+const handleViewDetails = (id) => {
+    // console.log(id)
     fetch(`https://openapi.programming-hero.com/api/plant/${id}`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            modalDisplay(data.plants)
         })
         .catch((err) => {
             console.log(err)
@@ -173,6 +229,8 @@ const handleViewDetails = (e) => {
 }
 
 
-loadCardByCategory("1")
+
+loadAllPlants()
+// loadCardByCategory("1")
 
 loadCategory()
