@@ -63,18 +63,19 @@ const categoryDisplay = (categories) => {
     categories.forEach(category => {
         // console.log(category.id)
         categoryItems.innerHTML += `
-        <li id="${category.id}"class="text-xl ml-4 hover:bg-white p-2">${category.category_name}</li>
+        <li id="${category.id}"class="text-xl ml-4 hover:bg-green-500 p-2 border-yellow-500 border lg:border-none">${category.category_name}</li>
         `
     });
     categoryItems.addEventListener("click", (e) => {
         const allLi = document.querySelectorAll("li");
+        allLi.forEach(li => li.classList.remove("active"));
         const id = e.target.id;
         allLi.forEach(li => {
-            e.target.classList.add('bg-yellow-600')
+            e.target.classList.add('active')
         });
+
         loadCardByCategory(e.target.id)
     })
-
 }
 
 // load card from api 
@@ -97,7 +98,6 @@ const displayCard = (cards) => {
         const priceId = card.id;
         const title = card.name;
         const price = card.price;
-
         cardContainer.innerHTML += `
                     <div class="card bg-white w-96 mx-auto  shadow-sm h-[400px]">
                         <figure>
@@ -151,7 +151,7 @@ const showCartItem = (cartItem) => {
                              <p><span class="font-bold">৳  ${item.price}</span> × 1</p>
                         </div>
                         <div>
-                            <button onclick="handleDeleteItem('${item.id}')" class="fa-solid fa-xmark"></button>
+                            <button onclick="handleDeleteItem('${item.id}')" class="fa-solid fa-xmark "></button>
                         </div>
                     </div>
         `
@@ -178,26 +178,9 @@ const handleCartItem = (e) => {
     handleViewDetails(e)
 }
 
-// jevabe delete korbo cart item jaoa item ke jodi like na hoy 
 
-const handleDeleteItem = (itemId) => {
-    const filter = cartItem.filter(cartSingleItem => cartSingleItem.id !== itemId);
-    cartItem = filter;
-    const price = document.getElementById("total-price");
-    const priceValueNumber = Number(price.innerText);
-    if (cartContainer !== Object) {
-        price.innerText = "00";
-    }
-    for (const pr of cartItem) {
-        priceValueNumber.innerText = "";
-        const minusPr = Number(pr.price);
-        console.log(minusPr)
-        const beforePrice = Number(priceValueNumber - minusPr);
-        price.innerText = beforePrice;
-    }
-    // console.log(priceValueNumber, arrayPrice)
-    showCartItem(cartItem)
-}
+
+
 
 // show modal display 
 const modalDisplay = (plants) => {
@@ -228,9 +211,26 @@ const handleViewDetails = (id) => {
         })
 }
 
+// jevabe delete korbo cart item jaoa item ke jodi like na hoy 
+const handleDeleteItem = (itemId) => {
+    cartItem = cartItem.filter(cartSingleItem => cartSingleItem.id !== itemId);
+
+    const price = document.getElementById("total-price");
+
+    if (cartItem.length === 0) {
+        price.innerText = "0";
+    } else {
+        let total = 0;
+        for (const pr of cartItem) {
+            total += Number(pr.price);
+        }
+        price.innerText = total;
+    }
+
+    showCartItem(cartItem);
+};
+
 
 
 loadAllPlants()
-// loadCardByCategory("1")
-
 loadCategory()
