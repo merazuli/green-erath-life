@@ -59,7 +59,7 @@ const loadCategory = () => {
 
 // show category on display 
 const categoryDisplay = (categories) => {
-    // console.log(categories)
+    cardContainer.innerHTML = ' '
     categories.forEach(category => {
         // console.log(category.id)
         categoryItems.innerHTML += `
@@ -67,6 +67,8 @@ const categoryDisplay = (categories) => {
         `
     });
     categoryItems.addEventListener("click", (e) => {
+        cardContainer.innerHTML = ""
+        showLoading()
         const allLi = document.querySelectorAll("li");
         allLi.forEach(li => li.classList.remove("active"));
         const id = e.target.id;
@@ -122,11 +124,6 @@ const displayCard = (cards) => {
 }
 
 cardContainer.addEventListener('click', (e) => {
-    // console.log(e.target)
-    // console.log(e.target.innerText)
-    // const title = e.target.parentNode.children[0].innerText
-    // console.log(title)
-
     if (e.target.innerText === "Add To Cart") {
         alert('added item to cart')
         const price = document.getElementById("total-price");
@@ -229,7 +226,10 @@ const handleDeleteItem = (itemId) => {
 
     showCartItem(cartItem);
 };
-
+const showLoading = () => {
+    cardContainer.innerHTML += `<span class="loading loading-dots loading-xl text center mx-auto "></span>
+    `
+}
 
 
 loadAllPlants()
