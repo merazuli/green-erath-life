@@ -232,5 +232,5 @@ const showLoading = () => {
 }
 
 
-loadAllPlants()
 loadCategory()
+loadAllPlants()
